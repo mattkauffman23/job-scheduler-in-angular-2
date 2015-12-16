@@ -1,6 +1,7 @@
 import {Component}    from 'angular2/core';
 import {JobService}   from './job.service';
 import {JobComponent} from './job.component';
+import {Job}          from './job';
 
 @Component({
     selector: 'scheduler',
@@ -25,33 +26,33 @@ import {JobComponent} from './job.component';
 })
 
 export class AppComponent {
-  private jobs:any = [];
+  private jobs:Job[];
+  private newJob:Job;
   private adding:boolean = false;
-  private newJob:any = null;
 
   constructor(private jobService: JobService) {
     this.jobs = jobService.getJobs();
   }
 
-  onAddJobClick() {
+  onAddJobClick():void {
     this.adding = true;
     this.newJob = this.jobService.newJob();
   }
 
-  onJobAdd(job) {
+  onJobAdd(job: Job):void {
     this.adding = false;
     this.onJobSave(job);
   }
 
-  onJobSave(job) {
+  onJobSave(job: Job):void {
     this.jobService.upsertJob(job);
   }
 
-  onJobAddCancel() {
+  onJobAddCancel():void {
     this.adding = false;
   }
 
-  onJobRemove(job) {
+  onJobRemove(job: Job):void {
     this.jobService.deleteJob(job);
   }
 

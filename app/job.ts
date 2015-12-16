@@ -14,7 +14,7 @@ export class Job {
 
   }
 
-  clone() {
+  clone():Job {
     return new Job(
       this.id,
       this.cmd,

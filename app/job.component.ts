@@ -64,29 +64,29 @@ export class JobComponent implements OnInit {
   private frequencyOpts:string[] = Frequencies;
   private sizeOpts:string[] = Sizes;
 
-  ngOnInit() {
+  ngOnInit():void {
     if (this.isNew) {
       this.editing = true;
       this.workingCopy = this.model.clone();
     }
   }
 
-  onEditClick() {
+  onEditClick():void {
     this.editing = true;
     this.workingCopy = this.model.clone();
   }
 
-  onCancelClick() {
+  onCancelClick():void {
     this.editing = false;
     this.cancelEdit.next(null);
   }
 
-  onSaveClick() {
+  onSaveClick():void {
     this.editing = false;
     this.save.next(this.workingCopy);
   }
 
-  onDeleteClick() {
+  onDeleteClick():void {
     this.delete.next(this.model);
   }
 
