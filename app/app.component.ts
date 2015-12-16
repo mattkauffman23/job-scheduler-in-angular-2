@@ -8,15 +8,28 @@ interface Job {
   cmd: string;
   size: Size;
   frequency: Frequency;
-  nextDue: number;
-  lastRun: number;
+  nextDue: Date;
+  lastRun: Date;
 }
 
 @Component({
-    selector: 'my-app',
-    template: '<h1>my app title</h1>'
+    selector: 'scheduler',
+    template: `
+      <ul>
+        <li *ngFor="#job of jobs">
+          <div> >> {{ job.cmd }}</div>
+          <div>{{ job.size }}</div>
+          Edit...
+        </li>
+      </ul>
+    `
 })
 
 export class AppComponent {
-
+  public jobs = _jobs;
 }
+
+let _jobs: Job[] = [
+  { id: 1, cmd: 'foo bar baz', size: Size.Small, frequency: Frequency.Hourly, nextDue: new Date(), lastRun: new Date()},
+  { id: 2, cmd: 'baz bar foo', size: Size.Free, frequency: Frequency.Daily, nextDue: new Date(), lastRun: new Date()},
+];
