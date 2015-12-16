@@ -1,25 +1,58 @@
-import {Component} from 'angular2/core';
-import {Job} from './job';
+import {Component}    from 'angular2/core';
+import {JobService}   from './job.service';
+import {JobComponent} from './job.component';
 
 @Component({
     selector: 'scheduler',
+    directives: [JobComponent],
     template: `
-      <ul>
-        <li *ngFor="#job of jobs">
-          <div> >> {{ job.cmd }}</div>
-          <div>{{ job.size }}</div>
-          Edit...
-        </li>
-      </ul>
-      <button>Add Job</button>
+      <div class="list-wrap">
+        <ul>
+          <li *ngFor="#job of jobs">
+            <job [model]="job"
+              (save)="onJobSave($event)"
+              (delete)="onJobRemove($event)"></job>
+          </li>
+        </ul>
+        <button *ngIf="!adding" (click)="onAddJobClick()">Add Job</button>
+        <div *ngIf="adding">
+          <job [model]="newJob" [isNew]="true"
+              (save)="onJobAdd($event)"
+              (cancelEdit)="onJobAddCancel($event)"></job>
+        </div>
+      </div>
     `
 })
 
 export class AppComponent {
-  public jobs = _jobs;
-}
+  private jobs:any = [];
+  private adding:boolean = false;
+  private newJob:any = null;
 
-let _jobs: Job[] = [
-  { id: 1, cmd: 'foo bar baz', size: Job.Sizes.Small, frequency: Job.Frequencies.Hourly, nextDue: new Date(), lastRun: new Date()},
-  { id: 2, cmd: 'baz bar foo', size: Job.Sizes.Free, frequency: Job.Frequencies.Daily, nextDue: new Date(), lastRun: new Date()}
-];
+  constructor(private jobService: JobService) {
+    this.jobs = jobService.getJobs();
+  }
+
+  onAddJobClick() {
+    this.adding = true;
+    this.newJob = this.jobService.newJob();
+  }
+
+  onJobAdd(job) {
+    this.adding = false;
+    this.onJobSave(job);
+  }
+
+  onJobSave(job) {
+    this.jobService.upsertJob(job);
+  }
+
+  onJobAddCancel() {
+    this.adding = false;
+  }
+
+  onJobRemove(job) {
+    this.jobService.deleteJob(job);
+  }
+
+}
