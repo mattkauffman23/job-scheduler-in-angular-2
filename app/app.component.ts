@@ -1,16 +1,5 @@
 import {Component} from 'angular2/core';
-
-enum Size { Free, Small, Medium, Big, Giant };
-enum Frequency { Daily, Hourly, TenMinutes };
-
-interface Job {
-  id: number;
-  cmd: string;
-  size: Size;
-  frequency: Frequency;
-  nextDue: Date;
-  lastRun: Date;
-}
+import {Job} from './job';
 
 @Component({
     selector: 'scheduler',
@@ -22,6 +11,7 @@ interface Job {
           Edit...
         </li>
       </ul>
+      <button>Add Job</button>
     `
 })
 
@@ -30,6 +20,6 @@ export class AppComponent {
 }
 
 let _jobs: Job[] = [
-  { id: 1, cmd: 'foo bar baz', size: Size.Small, frequency: Frequency.Hourly, nextDue: new Date(), lastRun: new Date()},
-  { id: 2, cmd: 'baz bar foo', size: Size.Free, frequency: Frequency.Daily, nextDue: new Date(), lastRun: new Date()},
+  { id: 1, cmd: 'foo bar baz', size: Job.Sizes.Small, frequency: Job.Frequencies.Hourly, nextDue: new Date(), lastRun: new Date()},
+  { id: 2, cmd: 'baz bar foo', size: Job.Sizes.Free, frequency: Job.Frequencies.Daily, nextDue: new Date(), lastRun: new Date()}
 ];
