@@ -1,4 +1,4 @@
-import {Job, Sizes, Frequencies} from './job';
+import {Job} from './job';
 
 declare var _;
 
@@ -15,8 +15,7 @@ export class JobService {
   }
 
   newJob() {
-    return new Job(this.nextId(), 'rake do_something', 'free', 'hourly',
-        new Date(), new Date());
+    return new Job(this.nextId());
   }
 
   deleteJob(job: Job) {
@@ -25,7 +24,7 @@ export class JobService {
   }
 
   upsertJob(job: Job) {
-    const match = this.jobs.find(item => item.id === job.id));
+    const match = this.jobs.find(item => item.id === job.id);
     if (match) {
       this.jobs.splice(this.jobs.indexOf(match), 1, job);
     } else {
