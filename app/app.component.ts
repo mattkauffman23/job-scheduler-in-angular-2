@@ -4,29 +4,9 @@ import {JobComponent} from './job.component';
 import {Job}          from './job';
 
 @Component({
-    selector: 'scheduler',
-    directives: [JobComponent],
-    template: `
-      <div class="col-md-8 col-md-offset-2">
-        <ul *ngIf="jobs.length" class="list-group">
-          <li *ngFor="#job of jobs"
-              class="list-group-item ">
-            <job [model]="job"
-              (save)="onJobSave($event)"
-              (delete)="onJobRemove($event)"></job>
-          </li>
-        </ul>
-        <button *ngIf="!adding" (click)="onAddJobClick()"
-            class="btn btn-primary btn-lg btn-block">Add Job</button>
-        <div *ngIf="adding" class="list-group">
-          <job [model]="newJob"
-              [isNew]="true"
-              (save)="onJobAdd($event)"
-              (cancelEdit)="onJobAddCancel($event)"
-              class="list-group-item"></job>
-        </div>
-      </div>
-    `
+  selector: 'scheduler',
+  directives: [JobComponent],
+  templateUrl: 'templates/app.html'
 })
 
 export class AppComponent {

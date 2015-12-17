@@ -1,0 +1,49 @@
+<form class="job">
+  <div *ngIf="!editing" class="input-group command">
+    <span class="input-group-addon">$</span>
+    <input type="text" [(ngModel)]="model.cmd" class="form-control" disabled/>
+  </div>
+  <div *ngIf="editing" class="input-group command">
+    <span class="input-group-addon">$</span>
+    <input type="text" [(ngModel)]="workingCopy.cmd"
+        placeholder="rake do_something" class="form-control"/>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label>Dyno Size</label>
+      <small *ngIf="!editing">{{ model.size }}</small>
+      <select *ngIf="editing"
+          [(ngModel)]="workingCopy.size">
+        <option *ngFor="#opt of sizeOpts" [value]="opt">
+          {{ opt }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label>Frequency</label>
+      <small *ngIf="!editing">{{ model.frequency }}</small>
+      <select *ngIf="editing"
+          [(ngModel)]="workingCopy.frequency">
+        <option *ngFor="#opt of frequencyOpts" [value]="opt">
+          {{ opt }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label>Last Run</label>
+      <small>{{ formatLastRun(model.lastRun) }}</small>
+    </div>
+    <div class="col-md-3">
+      <label>Next Due</label>
+      <small>{{ model.nextDue | date: 'short' }}</small>
+    </div>
+  </div>
+  <div *ngIf="!editing" class="actions">
+    <button (click)="onEditClick()" class="btn btn-default">edit</button>
+    <button (click)="onDeleteClick()" class="btn btn-link">remove</button>
+  </div>
+  <div *ngIf="editing" class="actions">
+    <button (click)="onSaveClick()" class="btn btn-primary">save</button>
+    <button (click)="onCancelClick()" class="btn btn-link">cancel</button>
+  </div>
+</form>
