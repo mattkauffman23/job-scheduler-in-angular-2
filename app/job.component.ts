@@ -34,7 +34,7 @@ import {Job, Sizes, Frequencies} from './job';
         </div>
         <div class="col-25">
           <label>Last Run</label>
-          {{ model.lastRun.getTime() === 0 ? 'Never' : model.lastRun | date: 'short' }}
+          {{ formatLastRun(model.lastRun) }}
         </div>
         <div class="col-25">
           <label>Next Due</label>
@@ -88,6 +88,11 @@ export class JobComponent implements OnInit {
 
   onDeleteClick():void {
     this.delete.next(this.model);
+  }
+
+  // Had to move out of template becuase: https://github.com/angular/angular/issues/5169
+  formatLastRun(date: Date) {
+    return date.getTime() === 0 ? 'Never' : date.toString();
   }
 
 }
