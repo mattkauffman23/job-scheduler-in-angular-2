@@ -5,7 +5,7 @@ export class Job {
 
   constructor(
     public id: number,
-    public cmd:string = 'rake do_something',
+    public cmd:string = '',
     public size: string = Sizes[0],
     public frequency: string = Frequencies[0],
     public nextDue: Date = new Date(),
