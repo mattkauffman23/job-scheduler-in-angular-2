@@ -7,19 +7,23 @@ import {Job}          from './job';
     selector: 'scheduler',
     directives: [JobComponent],
     template: `
-      <div class="list-wrap">
-        <ul>
-          <li *ngFor="#job of jobs">
+      <div class="col-md-8 col-md-offset-2">
+        <ul *ngIf="jobs.length" class="list-group">
+          <li *ngFor="#job of jobs"
+              class="list-group-item ">
             <job [model]="job"
               (save)="onJobSave($event)"
               (delete)="onJobRemove($event)"></job>
           </li>
         </ul>
-        <button *ngIf="!adding" (click)="onAddJobClick()">Add Job</button>
-        <div *ngIf="adding">
-          <job [model]="newJob" [isNew]="true"
+        <button *ngIf="!adding" (click)="onAddJobClick()"
+            class="btn btn-primary btn-lg btn-block">Add Job</button>
+        <div *ngIf="adding" class="list-group">
+          <job [model]="newJob"
+              [isNew]="true"
               (save)="onJobAdd($event)"
-              (cancelEdit)="onJobAddCancel($event)"></job>
+              (cancelEdit)="onJobAddCancel($event)"
+              class="list-group-item"></job>
         </div>
       </div>
     `

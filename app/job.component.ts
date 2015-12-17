@@ -7,14 +7,19 @@ import {Job, Sizes, Frequencies} from './job';
   outputs: ['save', 'delete', 'cancelEdit'],
   template: `
     <form class="job">
-      <div *ngIf="!editing" class="command">{{ model.cmd }}</div>
-      <div *ngIf="editing" class="command">
-        <input type="text" [(ngModel)]="workingCopy.cmd" />
+      <div *ngIf="!editing" class="input-group command">
+        <span class="input-group-addon">$</span>
+        <input type="text" [(ngModel)]="model.cmd" class="form-control" disabled/>
+      </div>
+      <div *ngIf="editing" class="input-group command">
+        <span class="input-group-addon">$</span>
+        <input type="text" [(ngModel)]="workingCopy.cmd"
+            placeholder="rake do_something" class="form-control"/>
       </div>
       <div class="row">
-        <div class="col-25">
+        <div class="col-md-3">
           <label>Dyno Size</label>
-          <span *ngIf="!editing">{{ model.size }}</span>
+          <small *ngIf="!editing">{{ model.size }}</small>
           <select *ngIf="editing"
               [(ngModel)]="workingCopy.size">
             <option *ngFor="#opt of sizeOpts" [value]="opt">
@@ -22,9 +27,9 @@ import {Job, Sizes, Frequencies} from './job';
             </option>
           </select>
         </div>
-        <div class="col-25">
+        <div class="col-md-3">
           <label>Frequency</label>
-          <span *ngIf="!editing">{{ model.frequency }}</span>
+          <small *ngIf="!editing">{{ model.frequency }}</small>
           <select *ngIf="editing"
               [(ngModel)]="workingCopy.frequency">
             <option *ngFor="#opt of frequencyOpts" [value]="opt">
@@ -32,22 +37,22 @@ import {Job, Sizes, Frequencies} from './job';
             </option>
           </select>
         </div>
-        <div class="col-25">
+        <div class="col-md-3">
           <label>Last Run</label>
-          {{ formatLastRun(model.lastRun) }}
+          <small>{{ formatLastRun(model.lastRun) }}</small>
         </div>
-        <div class="col-25">
+        <div class="col-md-3">
           <label>Next Due</label>
-          {{ model.nextDue | date: 'short' }}
+          <small>{{ model.nextDue | date: 'short' }}</small>
         </div>
       </div>
       <div *ngIf="!editing" class="actions">
-        <button (click)="onEditClick()">edit</button>
-        <button (click)="onDeleteClick()">remove</button>
+        <button (click)="onEditClick()" class="btn btn-default">edit</button>
+        <button (click)="onDeleteClick()" class="btn btn-link">remove</button>
       </div>
       <div *ngIf="editing" class="actions">
-        <button (click)="onSaveClick()">save</button>
-        <button (click)="onCancelClick()">cancel</button>
+        <button (click)="onSaveClick()" class="btn btn-primary">save</button>
+        <button (click)="onCancelClick()" class="btn btn-link">cancel</button>
       </div>
     </form>
   `

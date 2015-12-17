@@ -1,0 +1,11 @@
+job > * {
+  margin: .5em;
+}
+
+job .command, job .row {
+  margin-bottom: 1em;
+}
+
+job label {
+  display: block;
+}
