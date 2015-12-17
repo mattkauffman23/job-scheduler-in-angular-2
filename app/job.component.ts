@@ -34,11 +34,11 @@ import {Job, Sizes, Frequencies} from './job';
         </div>
         <div class="col-25">
           <label>Last Run</label>
-          {{ model.lastRun }}
+          {{ model.lastRun.getTime() === 0 ? 'Never' : model.lastRun | date: 'short' }}
         </div>
         <div class="col-25">
           <label>Next Due</label>
-          {{ model.nextDue }}
+          {{ model.nextDue | date: 'short' }}
         </div>
       </div>
       <div *ngIf="!editing" class="actions">
